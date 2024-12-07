@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 220px;
+            background-color: #343a40;
+            color: white;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+        .main-content {
+            margin-left: 240px;
+            padding: 20px;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        .table th, .table td {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h3 class="text-center">KUMIS</h3>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#college-management">College Management</a>
+        <a href="#student-management">Student Management</a>
+        <a href="#exam">Exam</a>
+        <a href="#marks">Marks</a>
+        <a href="#reports">Reports</a>
+    </div>
+    <div class="main-content">
+        <h2>Student Management</h2>
+        <div class="d-flex justify-content-between mb-3">
+            <input type="text" class="form-control" placeholder="Name / Phone No" style="max-width: 300px;" id="search">
+            <select class="form-control" style="max-width: 200px;">
+                <option>bachelor in computer application</option>
+                <option>BPH</option>
+                <option>BIT</option>
+                <option>B Tech</option>
+            </select>
+            <div>
+                <button class="btn btn-success" id="filter" onclick="filter()">Filter</button>
+                <button class="btn btn-secondary" id="Reset">Reset</button>
+            </div>
+        </div>
+        <div class="table-wrapper">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>S.N.</th>
+                        <th>Name</th>
+                        <th>Reg. No.</th>
+                        <th>College Name</th>
+                        <th>Program</th>
+                        <th>Profile</th>
+                        <th>Contact</th>
+                        <th>Education</th>
+                        <th>College Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="student-table">
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Bachelors in Computer Application</td>
+                        <td><span class="badge badge-success">Active</span></td>
+                        <td>Complete</td>
+                        <td>Complete</td>
+                        <td>Complete</td>
+                        <td><span class="badge badge-success">Approved by College</span></td>
+                    </tr>
+                    <!-- Repeat similar <tr> elements for other rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function filter() {
+            var search = document.getElementById("search").value;
+            var program = document.querySelector("select").value; // Program filter
+            var studentRows = document.querySelectorAll("tbody tr");
+    
+            // Loop through each student row and apply filter logic
+            studentRows.forEach(function(row) {
+                var name = row.cells[1].textContent.toLowerCase();
+                var regNo = row.cells[2].textContent.toLowerCase();
+                var college = row.cells[3].textContent.toLowerCase();
+                var studentProgram = row.cells[4].textContent.toLowerCase();
+                var showRow = true;
+    
+                // Check if the search term matches any field
+                if (search && (name.indexOf(search.toLowerCase()) === -1 && regNo.indexOf(search.toLowerCase()) === -1)) {
+                    showRow = false;
+                }
+    
+                // Apply program filter
+                if (program && studentProgram.indexOf(program.toLowerCase()) === -1) {
+                    showRow = false;
+                }
+    
+                // Toggle row visibility based on the filtering condition
+                row.style.display = showRow ? "" : "none";
+            });
+        }
+    </script>
+    
+</body>
+</html>

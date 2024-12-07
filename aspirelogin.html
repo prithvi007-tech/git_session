@@ -1,0 +1,8 @@
+$filename = "webdictionary.txt";
+$file_size = filesize($filename);
+
+echo "The size of the file is " . $file_size . " bytes.\n";
+
+$myfile = fopen($filename, "r") or die("Unable to open file!");
+echo fread($myfile, $file_size);
+fclose($myfile);
